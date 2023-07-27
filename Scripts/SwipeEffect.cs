@@ -20,7 +20,7 @@ public class SwipeEffect : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDrag
 
     public void OnDrag(PointerEventData eventData)
     {
-        transform.localPosition = new Vector2(transform.localPosition.x+eventData.delta.x,
+            transform.localPosition = new Vector2(transform.localPosition.x+eventData.delta.x,
             transform.localPosition.y+eventData.delta.y);
     }
 
@@ -30,30 +30,14 @@ public class SwipeEffect : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDrag
         Debug.Log("Initial touch position: " + _initialPosition);
     }
 
-    //public void OnEndDrag(PointerEventData eventData)
-    //{
-    //    _distanceMoved = Mathf.Abs(transform.localPosition.x - _initialPosition.x);
-    //    if (_distanceMoved < 0.4 * Screen.width)
-    //    {
-    //        transform.localPosition = _initialPosition;
-    //    }
-    //    else
-    //    {
-    //        if (transform.localPosition.x > _initialPosition.x)
-    //        {
-    //            _swipeLeft = false;
-
-    //        }
-    //        else
-    //        {
-    //            _swipeLeft = true;
-    //        }
-    //        StartCoroutine(MovedCard());
-    //    }
-    //}
-
     public void OnEndDrag(PointerEventData eventData)
     {
+        // Reset swipe flags
+        _swipeLeft = false;
+        _swipeRight = false;
+        _swipeUp = false;
+        _swipeDown = false;
+
         _distanceMovedHorizontal = Mathf.Abs(transform.localPosition.x - _initialPosition.x);
         _distanceMovedVertical = Mathf.Abs(transform.localPosition.y - _initialPosition.y);
 
@@ -72,34 +56,44 @@ public class SwipeEffect : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDrag
         }
         else
         {
-            // Card swipe off screen based off of direction && transform.localPosition.y > -0.5 && transform.localPosition.y < 0.5
-            if (transform.localPosition.x > _initialPosition.x)
+            // Card swipe off screen based on direction && transform.localPosition.y > -0.5 && transform.localPosition.y < 0.5
+            if (_distanceMovedHorizontal > _distanceMovedVertical)
             {
-                _swipeRight = true;
-                Debug.Log("SwipeRight");
-            }
-            else if (transform.localPosition.x < _initialPosition.x)
-            {
-                _swipeLeft = true;
-                Debug.Log("SwipeLeft");
-
-            }
-            else if (transform.localPosition.y > _initialPosition.y)
-            {
-                _swipeUp = true;
-                Debug.Log("SwipeUp");
-
-            }
-            else if (transform.localPosition.y < _initialPosition.y)
-            {
-                _swipeDown = true;
-                Debug.Log("SwipeDown");
-
+                // Horizontal swipe
+                if (transform.localPosition.x > _initialPosition.x)
+                {
+                    _swipeRight = true;
+                    Debug.Log("SwipeRight");
+                }
+                else if (transform.localPosition.x < _initialPosition.x)
+                {
+                    _swipeLeft = true;
+                    Debug.Log("SwipeLeft");
+                }
+                else
+                {
+                    Debug.Log("No Horizontal Swipe detected");
+                }
             }
             else
             {
-                Debug.Log("No Swipe detected");
+                // Vertical swipe
+                if (transform.localPosition.y > _initialPosition.y)
+                {
+                    _swipeUp = true;
+                    Debug.Log("SwipeUp");
+                }
+                else if (transform.localPosition.y < _initialPosition.y)
+                {
+                    _swipeDown = true;
+                    Debug.Log("SwipeDown");
+                }
+                else
+                {
+                    Debug.Log("No Vertical Swipe detected");
+                }
             }
+
             cardMoved?.Invoke();
             StartCoroutine(MovedCard());
         }
@@ -111,6 +105,7 @@ public class SwipeEffect : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDrag
         while (GetComponent<Image>().color != new Color(1, 1, 1, 0))
         {
             time += Time.deltaTime;
+
             if (_swipeLeft)
             {
                 transform.localPosition = new Vector3(Mathf.SmoothStep(transform.localPosition.x,
