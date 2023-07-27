@@ -727,6 +727,7 @@ GameObject:
   - component: {fileID: 1402081018}
   - component: {fileID: 1402081017}
   - component: {fileID: 1402081016}
+  - component: {fileID: 1402081019}
   m_Layer: 5
   m_Name: Card (1)
   m_TagString: Untagged
@@ -804,6 +805,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1402081014}
   m_CullTransparentMesh: 1
+--- !u!114 &1402081019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402081014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d03aad938dad41d8bd16d72390c1616, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardColors:
+  - {r: 0.8584906, g: 0.2794144, b: 0.2794144, a: 0}
+  - {r: 0.8538624, g: 0.85882354, b: 0.27843145, a: 0}
+  - {r: 0.27843145, g: 0.85882354, b: 0.3788986, a: 0}
+  - {r: 0.27843145, g: 0.42558974, b: 0.85882354, a: 0}
 --- !u!1 &1468641757
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,6 +1200,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 8512211929249604625, guid: 90cfdc9f49c1345119277ddad55567d7, type: 3}
+  cardColors:
+  - {r: 0.8679245, g: 0.34899375, b: 0.26610893, a: 0}
+  - {r: 0.85294414, g: 0.8679245, b: 0.29067284, a: 0}
+  - {r: 0.29019606, g: 0.37207055, b: 0.8666667, a: 0}
+  - {r: 0.29019606, g: 0.8666667, b: 0.29509845, a: 0}
 --- !u!1 &1775048661
 GameObject:
   m_ObjectHideFlags: 0
