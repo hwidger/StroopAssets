@@ -2,15 +2,18 @@ using UnityEngine;
 
 public class SpawnAndScrollObjects : MonoBehaviour
 {
-    public GameObject[] objectPrefabs; // Assign your prefabs in the Inspector
-    public float scrollSpeed = 5f; // Adjust the speed as needed
-    public float leftBoundary = -10f; // Set the left boundary where objects will be destroyed
-    public float spawnInterval = 2f; // Time interval between object spawns
+    public GameObject[] objectPrefabs;
+    public float scrollSpeed = 5f;
+    public float leftBoundaryOffset = -10f;
+    public float spawnInterval = 2f;
 
     private float nextSpawnTime;
 
+    private RectTransform canvasRectTransform;
+
     void Start()
     {
+        canvasRectTransform = GetComponent<RectTransform>(); // Reference to the Canvas's RectTransform
         nextSpawnTime = Time.time + spawnInterval;
     }
 
@@ -26,8 +29,8 @@ public class SpawnAndScrollObjects : MonoBehaviour
     void SpawnRandomObject()
     {
         int randomIndex = Random.Range(0, objectPrefabs.Length);
-        GameObject newObject = Instantiate(objectPrefabs[randomIndex], transform);
-        newObject.transform.position = GetRandomSpawnPosition();
+        GameObject newObject = Instantiate(objectPrefabs[randomIndex], canvasRectTransform);
+        newObject.transform.localPosition = GetRandomSpawnPosition();
 
         Rigidbody2D rb = newObject.GetComponent<Rigidbody2D>();
         if (rb != null)
@@ -38,8 +41,7 @@ public class SpawnAndScrollObjects : MonoBehaviour
 
     Vector2 GetRandomSpawnPosition()
     {
-        float spawnY = Random.Range(Screen.height * 0.25f, Screen.height * 0.75f);
-        Vector3 screenPosition = new Vector3(Screen.width + 10f, spawnY, 10f);
-        return Camera.main.ScreenToWorldPoint(screenPosition);
+        float spawnY = Random.Range(canvasRectTransform.rect.height * 0.25f, canvasRectTransform.rect.height * 0.75f);
+        return new Vector2(canvasRectTransform.rect.width + 10f, spawnY);
     }
 }
