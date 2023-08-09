@@ -5,6 +5,7 @@ public class SpawnAndScrollObjects : MonoBehaviour
     public GameObject[] objectPrefabs;
     public float scrollSpeed = 5f;
     public float leftBoundaryOffset = -10f;
+    public float leftBoundary = -10f;
     public float spawnInterval = 2f;
 
     private float nextSpawnTime;
@@ -24,6 +25,7 @@ public class SpawnAndScrollObjects : MonoBehaviour
             SpawnRandomObject();
             nextSpawnTime = Time.time + spawnInterval;
         }
+
     }
 
     void SpawnRandomObject()
@@ -37,11 +39,16 @@ public class SpawnAndScrollObjects : MonoBehaviour
         {
             rb.velocity = Vector2.left * scrollSpeed;
         }
+
     }
 
     Vector2 GetRandomSpawnPosition()
     {
-        float spawnY = Random.Range(canvasRectTransform.rect.height * 0.25f, canvasRectTransform.rect.height * 0.75f);
-        return new Vector2(canvasRectTransform.rect.width + 10f, spawnY);
+        // Will need to revisit these values when game screen is reactive
+        float spawnY = ((canvasRectTransform.rect.height / 2) - 350);
+        float spawnX = ((canvasRectTransform.rect.width / 2) - 75);
+        Debug.Log("spawnY" + spawnY);
+        Debug.Log("spawnX" + spawnX);
+        return new Vector2(spawnX, spawnY);
     }
 }
