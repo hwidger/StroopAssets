@@ -62,7 +62,7 @@ public class SpawnAndScrollObjects : MonoBehaviour
     Vector2 GetRandomSpawnPosition()
     {
         // Will need to revisit these values when game screen is reactive
-        float spawnY = ((canvasRectTransform.rect.height / 2) - 350);
+        float spawnY = ((canvasRectTransform.rect.height / 2) - 500);
         float spawnX = ((canvasRectTransform.rect.width / 2) - 75);
         Debug.Log("spawnY" + spawnY);
         Debug.Log("spawnX" + spawnX);

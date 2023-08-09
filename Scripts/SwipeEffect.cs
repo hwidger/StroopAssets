@@ -45,14 +45,6 @@ public class SwipeEffect : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDrag
         {
             transform.localPosition = _initialPosition;
             Debug.Log("Snapped");
-            
-            //Debug.Log("Screen Width:" + Screen.width);
-            //Debug.Log("Screen Height" + Screen.height);
-
-            //Debug.Log("Distance moved Horizontal" + _distanceMovedHorizontal);
-            //Debug.Log("Distance moved Vertical" + _distanceMovedVertical);
-
-
         }
         else
         {
