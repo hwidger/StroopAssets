@@ -1,3 +1,4 @@
+using System.Collections.Generic; // Import the namespace for List
 using UnityEngine;
 
 public class SpawnAndScrollObjects : MonoBehaviour
@@ -11,6 +12,7 @@ public class SpawnAndScrollObjects : MonoBehaviour
     private float nextSpawnTime;
 
     private RectTransform canvasRectTransform;
+    private List<GameObject> spawnedWalls = new List<GameObject>(); // Store spawned objects
 
     void Start()
     {
@@ -26,6 +28,7 @@ public class SpawnAndScrollObjects : MonoBehaviour
             nextSpawnTime = Time.time + spawnInterval;
         }
 
+        DestroyObjectsOnLeftBoundary();
     }
 
     void SpawnRandomObject()
@@ -40,6 +43,20 @@ public class SpawnAndScrollObjects : MonoBehaviour
             rb.velocity = Vector2.left * scrollSpeed;
         }
 
+        spawnedWalls.Add(newObject);
+
+    }
+
+    void DestroyObjectsOnLeftBoundary()
+    {
+        for (int i = spawnedWalls.Count - 1; i >= 0; i--)
+        {
+            if (spawnedWalls[i].transform.position.x <= leftBoundary)
+            {
+                Destroy(spawnedWalls[i]);
+                spawnedWalls.RemoveAt(i);
+            }
+        }
     }
 
     Vector2 GetRandomSpawnPosition()
