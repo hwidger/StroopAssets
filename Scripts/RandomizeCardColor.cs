@@ -3,12 +3,15 @@ using UnityEngine.UI;
 public class RandomizeCardColor : MonoBehaviour
 {
     private Image image;
+    private Text text;
 
     public Color[] cardColors;
+    public string[] cardWords; //Array of colors
 
     void Start()
     {
         image = GetComponent<Image>();
+        text = GetComponentInChildren<text>(); 
         RandomizeColor();
     }
 
